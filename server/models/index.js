@@ -8,3 +8,6 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 export default mongoose;
+
+module.exports.User = require("./user");
+module.exports.Poll = require("./poll");
