@@ -1,39 +1,38 @@
 require("dotenv").config();
-import mongoose from "mongoose";
-import { question } from "readline-sync";
+import { set, Promise as _Promise, connect } from "mongoose";
 
-mongoose.set("debug", true);
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASE);
+set("debug", true);
+_Promise = global.Promise;
+connect(process.env.DATABASE);
 
-const db = require("./models");
+import { User, Poll } from "./models";
 
 const users = [
-  { username: "user1", password: "password" },
-  { username: "Michael", password: "password" },
+  { username: "username", password: "password" },
+  { username: "kelvin", password: "password" },
 ];
+
 const polls = [
   {
-    question: "Which is the best Javascript framework",
-    options: ["Angular", "React", "Vue"],
+    question: "Which is the best JavaScript framework",
+    options: ["Angular", "React", "VueJS"],
   },
-  {
-    question: "Truth or Dare",
-    options: ["Truth", "Dare"],
-  },
+  { question: "Who is the best mutant", options: ["Wolverine", "Deadpool"] },
+  { question: "Truth or dare", options: ["Truth", "Dare"] },
+  { question: "Boolean?", options: ["True", "False"] },
 ];
 
 const seed = async () => {
   try {
-    await db.User.remove();
+    await User.remove();
     console.log("DROP ALL USERS");
 
-    await db.Poll.remove();
+    await Poll.remove();
     console.log("DROP ALL POLLS");
 
     await Promise.all(
       users.map(async (user) => {
-        const data = await db.User.create(user);
+        const data = await User.create(user);
         await data.save();
       })
     );
@@ -41,9 +40,9 @@ const seed = async () => {
 
     await Promise.all(
       polls.map(async (poll) => {
-        poll.options = poll.options.map((option) => ({ option, voted: 0 }));
-        const data = await db.Poll.create(poll);
-        const user = await db.User.findOne({ username: "username" });
+        poll.options = poll.options.map((option) => ({ option, votes: 0 }));
+        const data = await Poll.create(poll);
+        const user = await User.findOne({ username: "username" });
         data.user = user;
         user.polls.push(data._id);
         await user.save();
