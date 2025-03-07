@@ -15,6 +15,10 @@ const pollSchema = new mongoose.Schema({
   question: String,
   options: [{ optionSchema }],
   voted: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  created: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 mongoose.exports = mongoose.model("Poll", pollSchema);
