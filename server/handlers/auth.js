@@ -2,7 +2,7 @@ import db from "../models/index.js";
 
 const { User, Poll } = db;
 
-//API logic for endpoint
+//API logic for endpoints
 export async function register(req, res, next) {
   try {
     const user = await db.User.create(req.body);
