@@ -1,3 +1,7 @@
+import * as authHandlers from "./auth.js";
+
+export { authHandlers };
+
 export function notFound(req, res, next) {
   const err = new Error("Not Found");
   err.status = 404;
