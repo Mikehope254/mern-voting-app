@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.json({ hello: "world" });
 });
+
+//API Main entry point
 app.use("/api/auth", auth);
 
 app.use(notFound);
