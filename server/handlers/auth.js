@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import db from "../models/index.js";
 
 const { User, Poll } = db;
@@ -8,8 +9,13 @@ export async function register(req, res, next) {
     const user = await db.User.create(req.body);
     const { id, username } = user;
 
-    res.json({ id, username });
+    const token = jwt.sign({ id, username }, process.env.SECRET);
+
+    res.status(201).json({ id, username, token });
   } catch (err) {
+    if (err.code === 11000) {
+      err.message = "Sorry, that username is already taken";
+    }
     next(err);
   }
 }
@@ -21,11 +27,15 @@ export async function login(req, res, next) {
     const valid = await user.comparePassword(req.body.password);
 
     if (valid) {
-      res.json({ id, username });
+      const token = jwt.sign({ id, username }, process.env.SECRET);
+
+      res.json({ id, username, token });
     } else {
       throw new Error("Invalid Username/Password");
     }
   } catch (err) {
+    err.message = "Invalid Username/Password";
+
     next(err);
   }
 }
