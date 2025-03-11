@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 //API Main entry point
 app.use("/api/auth", auth);
-app.use("/api/poll", poll);
+app.use("/api/polls", poll);
 
 app.use(notFound);
 app.use(errors);
