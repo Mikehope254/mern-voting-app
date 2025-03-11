@@ -1,6 +1,7 @@
 import * as authHandlers from "./auth.js";
+import * as pollHandlers from "./poll.js";
 
-export { authHandlers };
+export { authHandlers, pollHandlers };
 
 export function notFound(req, res, next) {
   const err = new Error("Not Found");

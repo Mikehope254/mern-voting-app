@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 
 import { connectDB } from "./models/index.js";
 import { notFound, errors } from "./handlers/index.js";
-import { auth } from "./routes/index.js";
+import { auth, poll } from "./routes/index.js";
 
 const app = express();
 const port = process.env.PORT;
@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
 //API Main entry point
 app.use("/api/auth", auth);
+app.use("/api/poll", poll);
 
 app.use(notFound);
 app.use(errors);

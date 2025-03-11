@@ -10,11 +10,9 @@ const connectDB = async () => {
     await mongoose.connect("mongodb://localhost/vote");
     console.log("MongoDB Connected Successfully");
   } catch (error) {
-    console.error("MongoDB connection error:", err);
+    console.error("MongoDB connection error:", error);
     process.exit(1);
   }
 };
 
 export { connectDB, User, Poll };
-
-export default { connectDB, User, Poll };
