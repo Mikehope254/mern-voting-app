@@ -12,6 +12,6 @@ export function notFound(req, res, next) {
 
 export function errors(err, req, res, next) {
   res.status(err.status || 400).json({
-    err: err.message || "Something went wrong",
+    message: err.message || "Something went wrong",
   });
 }
