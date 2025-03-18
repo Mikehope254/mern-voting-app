@@ -22,8 +22,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", auth);
 app.use("/api/polls", poll);
 
-app.use(notFound);
-app.use(errors);
+app.use(notFound); //Handles unmatched routes
+app.use(errors); //Handles errors consistently
 
 connectDB().then(() => {
   app.listen(port, () => console.log(`Server started on ${port}`));

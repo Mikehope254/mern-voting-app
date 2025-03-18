@@ -1,5 +1,6 @@
 import { Poll, User } from "../models/index.js";
 
+//Retrieve all Polls
 export async function showPolls(req, res, next) {
   try {
     const polls = await Poll.find().populate("user", ["username", "id"]);
@@ -10,10 +11,10 @@ export async function showPolls(req, res, next) {
   }
 }
 
+//Retrieve Polls Created By a Specific User
 export async function usersPolls(req, res, next) {
   try {
     const { id } = req.decoded;
-
     const user = await User.findById(id).populate("polls");
 
     res.status(200).json(user.polls);
@@ -23,11 +24,12 @@ export async function usersPolls(req, res, next) {
   }
 }
 
+//Create a New Poll
 export async function createPoll(req, res, next) {
   try {
     console.log(req.decoded);
     const { id } = req.decoded;
-    const user = await User.findById(id);
+    const user = await User.findById(id); //finds the user in the database
 
     const { question, options } = req.body;
     const poll = await Poll.create({
@@ -35,7 +37,7 @@ export async function createPoll(req, res, next) {
       user,
       options: options.map((option) => ({ option, votes: 0 })),
     });
-    user.polls.push(poll._id);
+    user.polls.push(poll._id); //_id is unique MongoDB-generated identifier
     await user.save();
 
     res.status(201).json({ ...poll._doc, user: user._id });
@@ -45,6 +47,7 @@ export async function createPoll(req, res, next) {
   }
 }
 
+//Retrieve a Single Poll by ID
 export async function getPoll(req, res, next) {
   try {
     const { id } = req.params;
@@ -56,9 +59,11 @@ export async function getPoll(req, res, next) {
     res.status(200).json(poll);
   } catch (error) {
     error.status = 400;
+    next(error);
   }
 }
 
+//Delete a Poll
 export async function deletePoll(req, res, next) {
   try {
     const { id: pollId } = req.params;
@@ -79,6 +84,7 @@ export async function deletePoll(req, res, next) {
   }
 }
 
+//Cast a Vote for an Option
 export async function vote(req, res, next) {
   try {
     const { id: pollId } = req.params;
@@ -94,7 +100,7 @@ export async function vote(req, res, next) {
           return {
             option: option.option,
             _id: option._id,
-            votes: option.votes + 1,
+            votes: option.votes + 1, //Increase vote count for the selected option
           };
         } else {
           return option;
@@ -110,7 +116,7 @@ export async function vote(req, res, next) {
         throw new Error("Already Voted");
       }
     } else {
-      throw new Error("No asnwer provided");
+      throw new Error("No answer provided");
     }
   } catch (error) {
     error.status = 400;
