@@ -12,6 +12,13 @@ export const store = configureStore(
   DEFAULT_STATE,
   compose(
     applyMiddleware(thunk),
-    window._REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__
   )
 );
+
+//npm install @reduxjs/toolkit
+// export const store = configureStore({
+//   reducer: rootReducer,
+//   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+//   devtools:process.env.NODE_ENV !== "production",
+// })
