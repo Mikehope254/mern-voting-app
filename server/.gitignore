@@ -233,4 +233,4 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/linux,dotenv,node,visualstudiocode
 server/node_modules
 server/.env
-node_modules
+node_modules/
