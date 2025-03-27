@@ -11,6 +11,7 @@ export const store = configureStore({
 
 // const DEFAULT_STATE = {
 //   error: { message: null },
+
 // };
 
 // export const store = createStore(
