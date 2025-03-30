@@ -1,5 +1,6 @@
 import React from "react";
+import Auth from "../components/Auth";
 
 export default function App() {
-  return <div>App Works</div>;
+  return <Auth authType={"login"} />;
 }
