@@ -20,9 +20,10 @@ class Auth extends React.Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
     const { username, password } = this.state;
     const { authType } = this.props;
-    e.preventDefault();
+    console.log("Submitting:", { username, password });
 
     this.props.authUser(authType || "login", { username, password });
   }
@@ -33,14 +34,14 @@ class Auth extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label for="username">username</label>
+          <label htmlFor="username">username</label>
           <input
             type="text"
             value={username}
             name="username"
             onChange={this.handleChange}
           />
-          <label for="password">password</label>
+          <label htmlFor="password">password</label>
           <input
             type="password"
             value={password}
