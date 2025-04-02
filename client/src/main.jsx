@@ -9,6 +9,7 @@ import { store } from "./store";
 import { setCurrentUser, addError } from "./store/actions/index.js";
 import { setToken } from "./services/api";
 import { jwtDecode } from "jwt-decode";
+import { BrowserRouter } from "react-router-dom";
 
 //Check for jwt token in local storage before rendering
 // if (localStorage.jwtToken) {
@@ -39,7 +40,9 @@ if (localStorage.jwtToken) {
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </StrictMode>
 );
