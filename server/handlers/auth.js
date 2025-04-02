@@ -21,12 +21,12 @@ export async function register(req, res, next) {
   }
 }
 
-//Logic Function
+//Login Function
 export async function login(req, res, next) {
   try {
     const user = await User.findOne({ username: req.body.username }); //Finds the user in the database
     const { id, username } = user;
-    const valid = await user.comparePassword(req.body.password); //Checks if password is correctr
+    const valid = await user.comparePassword(req.body.password); //Checks if password is correct
 
     if (valid) {
       //If the password is correct it creates a JWT token (used for auth in future API requests) and returns a response
