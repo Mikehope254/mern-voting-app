@@ -1,30 +1,28 @@
-import dotenv from "dotenv";
-dotenv.config();
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
+require('dotenv').config();
 
-import { connectDB } from "./models/index.js";
-import { notFound, errors } from "./handlers/index.js";
-import { auth, poll } from "./routes/index.js";
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./models/index').connectDB;
+
+const routes = require('./routes');
+const handle = require('./handlers');
 
 const app = express();
-const port = process.env.PORT;
+const PORT = process.env.PORT || 4000;
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(bodyParser.json());
+app.use('/api/auth', routes.auth);
+app.use('/api/polls', routes.poll);
 
-app.get("/", (req, res) => {
-  res.json({ hello: "world" });
+app.use((req, res, next) => {
+  let err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
+app.use(handle.error);
 
-//API Main entry point
-app.use("/api/auth", auth);
-app.use("/api/polls", poll);
+connectDB();
 
-app.use(notFound); //Handles unmatched routes
-app.use(errors); //Handles errors consistently
-
-connectDB().then(() => {
-  app.listen(port, () => console.log(`Server started on ${port}`));
-});
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

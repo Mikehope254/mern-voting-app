@@ -1,0 +1,23 @@
+.poll-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.poll-question {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}

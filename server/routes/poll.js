@@ -1,21 +1,18 @@
-import express from "express";
-import authMiddleware from "../middlewares/auth.js";
-import { pollHandlers } from "../handlers/index.js";
-
-const { createPoll, showPolls, usersPolls, getPoll, deletePoll, vote } =
-  pollHandlers;
-
-const router = express.Router();
-router.route("/").get(showPolls); //Show everything
-
-//before creating/deleting a poll authMiddleware ensures the user is authenticated
-router.route("/").post(authMiddleware, createPoll);
-router.get("/user", authMiddleware, usersPolls);
+const router = require('express').Router();
+const handle = require('../handlers');
+const auth = require('../middleware/auth');
 
 router
-  .route("/:id")
-  .get(getPoll)
-  .post(authMiddleware, vote)
-  .delete(authMiddleware, deletePoll);
+  .route('/')
+  .get(handle.showPolls)
+  .post(auth, handle.createPoll);
 
-export default router;
+router.get('/user', auth, handle.usersPolls);
+
+router
+  .route('/:id')
+  .get(handle.getPoll)
+  .post(auth, handle.vote)
+  .delete(auth, handle.deletePoll);
+
+module.exports = router;

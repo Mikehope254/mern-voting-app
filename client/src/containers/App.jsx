@@ -1,12 +1,31 @@
-import React from "react";
-import RouteViews from "./RouteViews.jsx";
-import NavBar from "./NavBar.jsx";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import decode from 'jwt-decode';
 
-export default function App() {
-  return (
-    <div>
+import { store } from '../store';
+import { setToken, setCurrentUser, addError } from '../store/actions';
+
+import NavBar from './NavBar';
+import RouteViews from './RouteViews';
+
+if (localStorage.jwtToken) {
+  setToken(localStorage.jwtToken);
+  try {
+    store.dispatch(setCurrentUser(decode(localStorage.jwtToken)));
+  } catch (err) {
+    store.dispatch(setCurrentUser({}));
+    store.dispatch(addError(err));
+  }
+}
+
+const App = () => (
+  <Provider store={store}>
+    <Router>
       <NavBar />
       <RouteViews />
-    </div>
-  );
-}
+    </Router>
+  </Provider>
+);
+
+export default App;

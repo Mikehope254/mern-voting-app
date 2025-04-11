@@ -1,8 +1,12 @@
-import React, { Fragment } from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-const ErrorMessage = ({ error }) => (
-  <Fragment>{error && <div>{error.message}</div>}</Fragment>
-);
+const ErrorMessage = () => {
+  const error = useSelector(state => state.error);
 
-export default connect((store) => ({ error: store.error }))(ErrorMessage);
+  return error.message ? (
+    <div className="error">{error.message.message}</div>
+  ) : null;
+};
+
+export default ErrorMessage;

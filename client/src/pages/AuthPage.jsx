@@ -1,10 +1,14 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-import Auth from "../components/Auth.jsx";
-import ErrorMessage from "../components/ErrorMessage.jsx";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const AuthPage = ({ authType, isAuthenticated }) => {
-  if (isAuthenticated) return <Redirect to="/" />;
+import Auth from '../components/Auth';
+import ErrorMessage from '../components/ErrorMessage';
+
+const AuthPage = ({ authType }) => {
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+  if (isAuthenticated) return <Navigate to="/" />;
 
   return (
     <div>

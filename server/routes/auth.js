@@ -1,13 +1,8 @@
-import express from "express";
-// import { register, login } from "../handlers/auth.js";
+const router = require('express').Router();
+const handle = require('../handlers');
 
-import { authHandlers } from "../handlers/index.js";
-const { register, login } = authHandlers;
+router.get('/', handle.getUsers); // for development only
+router.post('/login', handle.login);
+router.post('/register', handle.register);
 
-const router = express.Router();
-
-//API endpoints
-router.post("/register", register);
-router.post("/login", login);
-
-export default router;
+module.exports = router;

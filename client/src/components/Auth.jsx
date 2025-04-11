@@ -1,60 +1,54 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { authUser, logout } from "../store/actions";
+import { authUser } from '../store/actions';
 
-class Auth extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-    };
+const Auth = ({ authType = 'login' }) => {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({ username: '', password: '' });
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  handleSubmit(e) {
+  const handleSubmit = e => {
     e.preventDefault();
-    const { username, password } = this.state;
-    const { authType } = this.props;
-    console.log("Submitting:", { username, password });
+    dispatch(authUser(authType, formData));
+  };
 
-    this.props.authUser(authType || "login", { username, password });
-  }
+  return (
+    <div>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="form-label" htmlFor="username">
+          username{' '}
+        </label>
+        <input
+          type="text"
+          value={formData.username}
+          name="username"
+          onChange={handleChange}
+          autoComplete="off"
+          className="form-input"
+        />
+        <label className="form-label" htmlFor="password">
+          password{' '}
+        </label>
+        <input
+          type="password"
+          value={formData.password}
+          name="password"
+          onChange={handleChange}
+          autoComplete="off"
+          className="form-input"
+        />
+        <div className="buttons_center">
+          <button className="button" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
-  render() {
-    const { username, password } = this.state;
-
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">username</label>
-          <input
-            type="text"
-            value={username}
-            name="username"
-            autoComplete="off"
-            onChange={this.handleChange}
-          />
-          <label htmlFor="password">password</label>
-          <input
-            type="password"
-            value={password}
-            name="password"
-            autoComplete="off"
-            onChange={this.handleChange}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    );
-  }
-}
-
-export default connect(() => ({}), { authUser, logout })(Auth);
+export default Auth;
