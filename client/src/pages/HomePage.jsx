@@ -1,22 +1,7 @@
-// import React from 'react';
+import React from "react";
 
-// import ErrorMessage from '../components/ErrorMessage';
-// import Polls from '../components/Polls';
-
-// const HomePage = props => (
-//   <div>
-//     <ErrorMessage />
-//     <Polls {...props} />
-//   </div>
-// );
-
-// export default HomePage;
-
-//No need to pass props manually when using Redux/hooks
-import React from 'react';
-
-import ErrorMessage from '../components/ErrorMessage';
-import Polls from '../components/Polls';
+import ErrorMessage from "../components/ErrorMessage";
+import Polls from "../components/Polls";
 
 const HomePage = () => (
   <div>
