@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import { Schema, model } from "mongoose";
+import { hash, compare } from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -16,15 +16,15 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  polls: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Poll' }],
+  polls: [{ type: Schema.Types.ObjectId, ref: "Poll" }],
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
   try {
-    if (!this.isModified('password')) {
+    if (!this.isModified("password")) {
       return next();
     }
-    const hashed = await bcrypt.hash(this.password, 10);
+    const hashed = await hash(this.password, 10);
     this.password = hashed;
     return next();
   } catch (err) {
@@ -34,10 +34,10 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.comparePassword = async function (attempt, next) {
   try {
-    return await bcrypt.compare(attempt, this.password);
+    return await compare(attempt, this.password);
   } catch (err) {
     return next(err);
   }
 };
 
-module.exports = mongoose.model('User', userSchema);
+export default model("User", userSchema);

@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import { set, Promise, connect } from "mongoose";
 
-mongoose.set("debug", true);
-mongoose.Promise = global.Promise;
+set("debug", true);
+Promise = global.Promise;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost/vote", {
+    await connect("mongodb://localhost/vote", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -15,6 +15,7 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-module.exports.connectDB = connectDB;
-module.exports.User = require("./user");
-module.exports.Poll = require("./poll");
+const _connectDB = connectDB;
+export { _connectDB as connectDB };
+export const User = require("./user").default;
+export const Poll = require("./poll").default;

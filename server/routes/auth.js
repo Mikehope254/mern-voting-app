@@ -1,8 +1,8 @@
-const router = require('express').Router();
-const handle = require('../handlers');
+const router = require("express").Router();
+import { getUsers, login, register } from "../handlers";
 
-router.get('/', handle.getUsers); // for development only
-router.post('/login', handle.login);
-router.post('/register', handle.register);
+router.get("/", getUsers); // for development only
+router.post("/login", login);
+router.post("/register", register);
 
-module.exports = router;
+export default router;

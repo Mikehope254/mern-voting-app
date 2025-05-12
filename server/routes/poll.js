@@ -1,18 +1,18 @@
-const router = require('express').Router();
-const handle = require('../handlers');
-const auth = require('../middleware/auth');
+const router = require("express").Router();
+import {
+  showPolls,
+  createPoll,
+  usersPolls,
+  getPoll,
+  vote,
+  deletePoll,
+} from "../handlers";
+import auth from "../middleware/auth";
 
-router
-  .route('/')
-  .get(handle.showPolls)
-  .post(auth, handle.createPoll);
+router.route("/").get(showPolls).post(auth, createPoll);
 
-router.get('/user', auth, handle.usersPolls);
+router.get("/user", auth, usersPolls);
 
-router
-  .route('/:id')
-  .get(handle.getPoll)
-  .post(auth, handle.vote)
-  .delete(auth, handle.deletePoll);
+router.route("/:id").get(getPoll).post(auth, vote).delete(auth, deletePoll);
 
-module.exports = router;
+export default router;

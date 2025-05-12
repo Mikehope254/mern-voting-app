@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const User = require('./user');
+import { Schema, model } from "mongoose";
+import { findById } from "./user";
 
-const optionSchema = new mongoose.Schema({
+const optionSchema = new Schema({
   option: String,
   votes: {
     type: Number,
@@ -9,10 +9,10 @@ const optionSchema = new mongoose.Schema({
   },
 });
 
-const pollSchema = new mongoose.Schema({
+const pollSchema = new Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
   created: {
     type: Date,
@@ -24,14 +24,14 @@ const pollSchema = new mongoose.Schema({
   },
   options: [optionSchema],
 
-  voted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  voted: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
-pollSchema.pre('remove', async function (next) {
+pollSchema.pre("remove", async function (next) {
   try {
-    const user = await User.findById(this.user);
+    const user = await findById(this.user);
     user.polls = user.polls.filter(
-      poll => poll._id.toString() !== this._id.toString(),
+      (poll) => poll._id.toString() !== this._id.toString()
     );
     await user.save();
     return next();
@@ -40,4 +40,4 @@ pollSchema.pre('remove', async function (next) {
   }
 });
 
-module.exports = mongoose.model('Poll', pollSchema);
+export default model("Poll", pollSchema);

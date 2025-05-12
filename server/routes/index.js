@@ -1,2 +1,2 @@
-module.exports.auth = require('./auth');
-module.exports.poll = require('./poll');
+export const auth = require("./auth");
+export const poll = require("./poll").default;
