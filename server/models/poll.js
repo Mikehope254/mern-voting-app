@@ -1,5 +1,6 @@
-import { Schema, model } from "mongoose";
-import { findById } from "./user";
+import pkg from "mongoose";
+const { Schema, model } = pkg;
+import User from "./user.js";
 
 const optionSchema = new Schema({
   option: String,
@@ -29,7 +30,7 @@ const pollSchema = new Schema({
 
 pollSchema.pre("remove", async function (next) {
   try {
-    const user = await findById(this.user);
+    const user = await User.findById(this.user);
     user.polls = user.polls.filter(
       (poll) => poll._id.toString() !== this._id.toString()
     );

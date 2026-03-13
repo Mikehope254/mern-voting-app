@@ -1,4 +1,4 @@
-import mongoose from mongoose;
+import mongoose from "mongoose";
 
 mongoose.set("debug", true);
 
@@ -14,7 +14,8 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-const _connectDB = connectDB;
-export { _connectDB as connectDB };
-export const User = require("./user").default;
-export const Poll = require("./poll").default;
+
+import User from "./user.js";
+import Poll from "./poll.js";
+
+export { connectDB, User, Poll };
