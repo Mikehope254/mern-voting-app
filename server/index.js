@@ -2,10 +2,10 @@ require("dotenv").config();
 
 import express, { json, urlencoded } from "express";
 import cors from "cors";
-import { connectDB } from "./models/index";
+import { connectDB } from "./models/index.js";
 
-import { auth, poll } from "./routes";
-import { error } from "./handlers";
+import { auth, poll } from "./routes/index.js";
+import { error } from "./handlers/index.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;

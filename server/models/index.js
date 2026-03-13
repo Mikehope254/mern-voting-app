@@ -1,7 +1,6 @@
-import { set, Promise, connect } from "mongoose";
+import mongoose from mongoose;
 
-set("debug", true);
-Promise = global.Promise;
+mongoose.set("debug", true);
 
 const connectDB = async () => {
   try {

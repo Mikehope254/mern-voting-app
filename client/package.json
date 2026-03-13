@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "axios": "^0.18.1",
     "chart.js": "^2.9.4",
