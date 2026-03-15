@@ -1,2 +1,4 @@
-export const auth = require("./auth");
-export const poll = require("./poll").default;
+import auth from "./auth.js";
+import poll from "./poll.js";
+
+export { auth, poll };

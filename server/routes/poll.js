@@ -1,4 +1,4 @@
-const router = require("express").Router();
+import express from "express";
 import {
   showPolls,
   createPoll,
@@ -6,8 +6,10 @@ import {
   getPoll,
   vote,
   deletePoll,
-} from "../handlers";
-import auth from "../middleware/auth";
+} from "../handlers/index.js";
+import auth from "../middleware/auth.js";
+
+const router = express.Router();
 
 router.route("/").get(showPolls).post(auth, createPoll);
 

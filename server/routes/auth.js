@@ -1,5 +1,7 @@
-const router = require("express").Router();
-import { getUsers, login, register } from "../handlers";
+import express from "express";
+import { getUsers, login, register } from "../handlers/index.js";
+
+const router = express.Router();
 
 router.get("/", getUsers); // for development only
 router.post("/login", login);
