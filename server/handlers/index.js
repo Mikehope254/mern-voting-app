@@ -1,7 +1,5 @@
-export default {
-  ...require("./auth"),
-  ...require("./poll"),
-};
+import * as auth from "./auth.js";
+import * as poll from "./poll.js";
 
 export function error(err, req, res, next) {
   return res.status(err.status || 500).json({
@@ -11,3 +9,5 @@ export function error(err, req, res, next) {
     },
   });
 }
+
+export { auth, poll };

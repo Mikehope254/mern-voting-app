@@ -1,4 +1,4 @@
-import { Poll, User } from "../models";
+import { Poll, User } from "../models/index.js";
 
 export async function showPolls(req, res, next) {
   try {
@@ -66,14 +66,14 @@ export async function vote(req, res, next) {
               _id: option._id,
               votes: option.votes + 1,
             }
-          : option
+          : option,
       );
 
       console.log("VOTE: USERID ", userId);
       console.log("VOTE: poll.voted ", poll.voted);
       console.log(
         "VOTE: vote filter",
-        poll.voted.filter((user) => user.toString() === userId).length
+        poll.voted.filter((user) => user.toString() === userId).length,
       );
 
       if (poll.voted.filter((user) => user.toString() === userId).length <= 0) {

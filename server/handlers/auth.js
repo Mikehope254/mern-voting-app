@@ -1,5 +1,6 @@
-import { User } from "../models";
-import { sign } from "jsonwebtoken";
+import { User } from "../models/index.js";
+import jwt from "jsonwebtoken";
+const { sign } = jwt;
 
 // for development only
 export async function getUsers(req, res, next) {
