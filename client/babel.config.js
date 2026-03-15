@@ -1,7 +1,5 @@
-module.exports = {
-  presets: [
-    ['@babel/preset-env', { modules: false }],
-    ['@babel/preset-react', { runtime: 'automatic' }],
-  ],
-  sourceType: 'unambiguous',
-};
+export const presets = [
+  ["@babel/preset-env", { modules: false }],
+  ["@babel/preset-react", { runtime: "automatic" }],
+];
+export const sourceType = "unambiguous";
