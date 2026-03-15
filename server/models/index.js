@@ -4,7 +4,7 @@ mongoose.set("debug", true);
 
 const connectDB = async () => {
   try {
-    await connect("mongodb://localhost/vote", {
+    await mongoose.connect("mongodb://localhost/vote", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
