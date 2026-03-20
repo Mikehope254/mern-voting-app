@@ -18,11 +18,10 @@
     "style-loader": "^4.0.0"
   },
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "vercel-build": "vite build",
-    "preview": "vite preview",
-    "test": "vite test"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:3000",
   "devDependencies": {
